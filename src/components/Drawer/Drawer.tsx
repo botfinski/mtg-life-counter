@@ -31,9 +31,6 @@ const Drawer = styled.div<DrawerProps>`
 `
 
 const ResetButton = styled.button`
-  position: absolute;
-  top: calc(50% - 30px);
-  left: calc(50% - 30px);
   width: 60px;
   height: 60px;
   background-color: white;

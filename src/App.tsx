@@ -16,7 +16,7 @@ const AppWrapper = styled.div`
 
 const ToggleButton = styled.button<DrawerProps>`
   position: absolute;
-  top: calc(50% - 30px);
+  top: calc(50vh - 30px);
   left: calc(50% - 30px);
   width: 60px;
   height: 60px;
@@ -28,7 +28,7 @@ const ToggleButton = styled.button<DrawerProps>`
   ${props =>
     props.isOpened &&
     css`
-      top: calc(50% - 80px);
+      top: calc(50vh - 80px);
     `};
 `
 

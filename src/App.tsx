@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Counter from "./components/Counter/Counter"
+import Counter, { Colors } from "./components/Counter/Counter"
 import Drawer, { DrawerProps } from "./components/Drawer/Drawer"
 import styled, { css } from "styled-components"
 
@@ -36,10 +36,14 @@ export const Players = [
   {
     id: 1,
     hp: 20,
+    colorPanelOpened: false,
+    bgColor: "black",
   },
   {
     id: 2,
     hp: 13,
+    colorPanelOpened: false,
+    bgColor: "red",
   },
 ]
 
@@ -61,13 +65,16 @@ export default function App() {
         }
       })
     )
+    setTimeout(() => {
+      setDrawerOpened(false)
+    }, 500)
   }
 
   const toggleDrawer = () => {
     setDrawerOpened(drawerOpened => !drawerOpened)
   }
 
-  const handleClick = (id: number, type: string) => {
+  const handleHPCounter = (id: number, type: string) => {
     switch (type) {
       case CLICK_TYPE.ADD:
         setPlayers(
@@ -90,6 +97,26 @@ export default function App() {
     }
   }
 
+  const toggleColorPanel = (id: number) => {
+    setPlayers(
+      [...players].map(player => {
+        return player.id === id
+          ? { ...player, colorPanelOpened: !player.colorPanelOpened }
+          : player
+      })
+    )
+  }
+
+  const handleColorChange = (id: number, color: string) => {
+    setPlayers(
+      [...players].map(player => {
+        return player.id === id
+          ? { ...player, bgColor: color, colorPanelOpened: false }
+          : player
+      })
+    )
+  }
+
   return (
     <AppWrapper>
       {players.map(player => (
@@ -97,12 +124,20 @@ export default function App() {
           hp={player.hp}
           id={player.id}
           key={player.id}
-          click={handleClick}
+          bgColor={player.bgColor}
+          handleHPCounter={handleHPCounter}
           isDrawerOpened={drawerOpened}
+          isColorPanelOpened={player.colorPanelOpened}
+          toggleColorPanel={toggleColorPanel}
+          handleColorChange={handleColorChange}
         />
       ))}
       <Drawer isOpened={drawerOpened} resetHP={resetHP} />
-      <ToggleButton onClick={toggleDrawer} isOpened={drawerOpened} />
+      <ToggleButton
+        onClick={toggleDrawer}
+        isOpened={drawerOpened}
+        type="button"
+      />
     </AppWrapper>
   )
 }

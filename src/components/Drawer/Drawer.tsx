@@ -40,7 +40,9 @@ const ResetButton = styled.button`
 const DrawerWrapper: React.FC<DrawerProps> = ({ isOpened, resetHP }) => {
   return (
     <Drawer isOpened={isOpened}>
-      <ResetButton onClick={resetHP}>reset</ResetButton>
+      <ResetButton type="button" onClick={resetHP}>
+        reset
+      </ResetButton>
     </Drawer>
   )
 }

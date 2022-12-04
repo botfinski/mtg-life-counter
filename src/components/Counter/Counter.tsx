@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { CLICK_TYPE } from "../../App"
 import {
   CounterWrapper,
@@ -18,6 +18,7 @@ export interface CounterStyleProps {
 export type ColorPanelProps = {
   isColorPanelOpened: boolean
 }
+
 export type CounterProps = {
   id: number
   hp: number
@@ -47,7 +48,7 @@ const Counter: React.FC<CounterProps> = ({
       >
         -
       </CounterButton>
-      <HP>{hp}</HP>
+      <HP value={hp}>{hp}</HP>
       <CounterButton
         onClick={() => handleHPCounter(id, CLICK_TYPE.ADD)}
         type="button"

@@ -1,5 +1,5 @@
-import { useState } from "react"
-import Counter, { Colors } from "./components/Counter/Counter"
+import { useEffect, useState } from "react"
+import Counter from "./components/Counter/Counter"
 import Drawer, { DrawerProps } from "./components/Drawer/Drawer"
 import styled, { css } from "styled-components"
 
@@ -16,10 +16,10 @@ const AppWrapper = styled.div`
 
 const ToggleButton = styled.button<DrawerProps>`
   position: absolute;
-  top: calc(50vh - 30px);
-  left: calc(50% - 30px);
-  width: 60px;
-  height: 60px;
+  top: calc(50vh - 35px);
+  left: calc(50% - 35px);
+  width: 70px;
+  height: 70px;
   background-color: yellow;
   border: 0;
   border-radius: 50%;
@@ -28,7 +28,7 @@ const ToggleButton = styled.button<DrawerProps>`
   ${props =>
     props.isOpened &&
     css`
-      top: calc(50vh - 80px);
+      top: calc(50vh - 87px);
     `};
 `
 
@@ -41,7 +41,7 @@ export const Players = [
   },
   {
     id: 2,
-    hp: 13,
+    hp: 20,
     colorPanelOpened: false,
     bgColor: "red",
   },
@@ -53,7 +53,9 @@ export const CLICK_TYPE = {
 }
 
 export default function App() {
-  const [players, setPlayers] = useState(Players)
+  const [players, setPlayers] = useState(
+    () => JSON.parse(localStorage.getItem("players")!) || Players
+  )
   const [drawerOpened, setDrawerOpened] = useState(false)
 
   const resetHP = () => {
@@ -72,6 +74,9 @@ export default function App() {
 
   const toggleDrawer = () => {
     setDrawerOpened(drawerOpened => !drawerOpened)
+    setPlayers(
+      [...players].map(player => ({ ...player, colorPanelOpened: false }))
+    )
   }
 
   const handleHPCounter = (id: number, type: string) => {
@@ -82,7 +87,6 @@ export default function App() {
             return player.id === id ? { ...player, hp: player.hp + 1 } : player
           })
         )
-
         break
       case CLICK_TYPE.REDUCE:
         setPlayers(
@@ -90,7 +94,6 @@ export default function App() {
             return player.id === id ? { ...player, hp: player.hp - 1 } : player
           })
         )
-
         break
       default:
         console.log(`Type ${type} is not supported.`)
@@ -105,6 +108,7 @@ export default function App() {
           : player
       })
     )
+    setDrawerOpened(false)
   }
 
   const handleColorChange = (id: number, color: string) => {
@@ -117,9 +121,13 @@ export default function App() {
     )
   }
 
+  useEffect(() => {
+    localStorage.setItem("players", JSON.stringify(players))
+  }, [players])
+
   return (
     <AppWrapper>
-      {players.map(player => (
+      {players.map((player: any) => (
         <Counter
           hp={player.hp}
           id={player.id}

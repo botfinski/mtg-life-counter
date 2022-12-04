@@ -12,18 +12,18 @@ const handleColorType = (bgColor: string) => {
     case "green":
       return "linear-gradient(229deg,#167c01,#014d01,#010904);"
     case "white":
-      return "linear-gradient(229deg,#a38600,#5a4600,#160f01);"
+      return "linear-gradient(229deg,#f6d5af,#b59e5e,#97732a);"
     default:
       return "#000"
   }
 }
 
 export const CounterWrapper = styled.div<CounterStyleProps>`
+  position: relative;
   height: 50vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
   outline: 1px solid beige;
   background: ${({ bgColor }) => handleColorType(bgColor)};
   transition: all 0.2s ease-in-out;
@@ -53,8 +53,19 @@ export const CounterButton = styled.button`
   background: rgba(0, 0, 0, 0.2);
 `
 
-export const HP = styled.span`
+export type HPProps = {
+  value: number
+}
+
+export const HP = styled.span<HPProps>`
   font-size: 8.5rem;
+  text-shadow: black 4px 4px;
+
+  ${({ value }) =>
+    value <= 0 &&
+    css`
+      color: red;
+    `};
 `
 
 export const ColorToggleButton = styled.button<ColorPanelProps>`
@@ -87,6 +98,6 @@ export const ColorPanel = styled.div<ColorPanelProps>`
 `
 export const ColorButton = styled.button`
   border: 0;
-  height: 60px;
-  width: 60px;
+  height: 70px;
+  width: 70px;
 `

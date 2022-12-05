@@ -13,6 +13,8 @@ const Drawer = styled.div<DrawerProps>`
   justify-content: center;
   order: 1;
   transition: all 0.2s ease-in-out;
+  background: #414141;
+  box-shadow: inset 0px 10px 35px -10px #000;
 
   & > button {
     visibility: hidden;
@@ -31,10 +33,15 @@ const Drawer = styled.div<DrawerProps>`
 `
 
 const ResetButton = styled.button`
-  width: 60px;
+  width: 95px;
   height: 60px;
   background-color: white;
   border: 0;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: 3px solid black;
 `
 
 const DrawerWrapper: React.FC<DrawerProps> = ({ isOpened, resetHP }) => {

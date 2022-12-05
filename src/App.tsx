@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import Counter from "./components/Counter/Counter"
-import Drawer, { DrawerProps } from "./components/Drawer/Drawer"
-import styled, { css } from "styled-components"
+import Drawer from "./components/Drawer/Drawer"
+import ToggleButton from "./components/ToggleButton/ToggleButton"
+import styled from "styled-components"
 
 const AppWrapper = styled.div`
   text-align: center;
@@ -14,23 +15,12 @@ const AppWrapper = styled.div`
   background-color: #282c34;
 `
 
-const ToggleButton = styled.button<DrawerProps>`
-  position: absolute;
-  top: calc(50vh - 35px);
-  left: calc(50% - 35px);
-  width: 70px;
-  height: 70px;
-  background-color: yellow;
-  border: 0;
-  border-radius: 50%;
-  transition: all 0.2s ease-in-out;
-
-  ${props =>
-    props.isOpened &&
-    css`
-      top: calc(50vh - 87px);
-    `};
-`
+export type Player = {
+  id: number
+  hp: number
+  colorPanelOpened: boolean
+  bgColor: string
+}
 
 export const Players = [
   {
@@ -127,7 +117,7 @@ export default function App() {
 
   return (
     <AppWrapper>
-      {players.map((player: any) => (
+      {players.map((player: Player) => (
         <Counter
           hp={player.hp}
           id={player.id}
@@ -141,11 +131,7 @@ export default function App() {
         />
       ))}
       <Drawer isOpened={drawerOpened} resetHP={resetHP} />
-      <ToggleButton
-        onClick={toggleDrawer}
-        isOpened={drawerOpened}
-        type="button"
-      />
+      <ToggleButton toggleDrawer={toggleDrawer} drawerOpened={drawerOpened} />
     </AppWrapper>
   )
 }

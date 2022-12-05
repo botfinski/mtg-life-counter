@@ -20,13 +20,13 @@ const handleColorType = (bgColor: string) => {
 
 export const CounterWrapper = styled.div<CounterStyleProps>`
   position: relative;
-  height: 50vh;
+  height: calc(50vh - 2px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  outline: 1px solid beige;
   background: ${({ bgColor }) => handleColorType(bgColor)};
   transition: all 0.2s ease-in-out;
+  border-top: 2px solid black;
 
   &:nth-of-type(1) {
     order: 1;
@@ -40,7 +40,7 @@ export const CounterWrapper = styled.div<CounterStyleProps>`
   ${props =>
     props.isDrawerOpened &&
     css`
-      height: calc(50vh - 50px);
+      height: calc(50vh - 50px - 2px);
     `};
 `
 
@@ -50,7 +50,7 @@ export const CounterButton = styled.button`
   border: 0;
   color: #fff;
   font-size: 3rem;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.1);
 `
 
 export type HPProps = {
@@ -75,7 +75,7 @@ export const ColorToggleButton = styled.button<ColorPanelProps>`
   top: 0;
   right: 0;
   border: 0;
-  background: #daff00;
+  background: transparent;
   z-index: 9;
 `
 
@@ -98,6 +98,10 @@ export const ColorPanel = styled.div<ColorPanelProps>`
 `
 export const ColorButton = styled.button`
   border: 0;
-  height: 70px;
-  width: 70px;
+  height: 85px;
+  width: 85px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  background: transparent;
 `

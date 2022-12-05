@@ -1,6 +1,14 @@
 import React from "react"
 import { CLICK_TYPE } from "../../App"
 import {
+  Black,
+  Blue,
+  ColorToggle as ColorToggleIcon,
+  Green,
+  Red,
+  White,
+} from "../Icons/Icons"
+import {
   CounterWrapper,
   CounterButton,
   HP,
@@ -59,7 +67,9 @@ const Counter: React.FC<CounterProps> = ({
         type="button"
         isColorPanelOpened={isColorPanelOpened}
         onClick={() => toggleColorPanel(id)}
-      />
+      >
+        <ColorToggleIcon />
+      </ColorToggleButton>
       <ColorPanel isColorPanelOpened={isColorPanelOpened}>
         {Colors.map(color => (
           <ColorButton
@@ -68,7 +78,11 @@ const Counter: React.FC<CounterProps> = ({
             key={color}
             onClick={() => handleColorChange(id, color)}
           >
-            {color}
+            {color === "black" && <Black />}
+            {color === "white" && <White />}
+            {color === "red" && <Red />}
+            {color === "blue" && <Blue />}
+            {color === "green" && <Green />}
           </ColorButton>
         ))}
       </ColorPanel>

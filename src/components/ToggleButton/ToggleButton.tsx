@@ -13,6 +13,9 @@ const ToggleButtonWrapper = styled.button<ToggleButtonProps>`
   left: calc(50% - 35px);
   width: 70px;
   height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: white;
   border: 3px solid black;
   border-radius: 50%;

@@ -77,6 +77,10 @@ export const ColorToggleButton = styled.button<ColorPanelProps>`
   border: 0;
   background: transparent;
   z-index: 9;
+
+  & > svg {
+    width: 85%;
+  }
 `
 
 export const ColorPanel = styled.div<ColorPanelProps>`

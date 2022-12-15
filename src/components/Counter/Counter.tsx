@@ -1,5 +1,5 @@
-import React from "react"
-import { CLICK_TYPE } from "../../App"
+import React from "react";
+import { CLICK_TYPE } from "../../App";
 import {
   Black,
   Blue,
@@ -7,7 +7,7 @@ import {
   Green,
   Red,
   White,
-} from "../Icons/Icons"
+} from "../Icons/Icons";
 import {
   CounterWrapper,
   CounterButton,
@@ -15,28 +15,28 @@ import {
   ColorToggleButton,
   ColorPanel,
   ColorButton,
-} from "./styles"
+} from "./styles";
 
-export const Colors = ["white", "black", "green", "blue", "red"]
+export const Colors = ["white", "black", "green", "blue", "red"];
 export interface CounterStyleProps {
-  isDrawerOpened: boolean
-  bgColor: string
+  isDrawerOpened: boolean;
+  bgColor: string;
 }
 
 export type ColorPanelProps = {
-  isColorPanelOpened: boolean
-}
+  isColorPanelOpened: boolean;
+};
 
 export type CounterProps = {
-  id: number
-  hp: number
-  bgColor: string
-  handleHPCounter: (id: number, type: string) => void
-  isDrawerOpened: boolean
-  isColorPanelOpened: boolean
-  handleColorChange: (id: number, color: string) => void
-  toggleColorPanel: (id: number) => void
-}
+  id: number;
+  hp: number;
+  bgColor: string;
+  handleHPCounter: (id: number, type: string) => void;
+  isDrawerOpened: boolean;
+  isColorPanelOpened: boolean;
+  handleColorChange: (id: number, color: string) => void;
+  toggleColorPanel: (id: number) => void;
+};
 
 const Counter: React.FC<CounterProps> = ({
   hp,
@@ -87,7 +87,7 @@ const Counter: React.FC<CounterProps> = ({
         ))}
       </ColorPanel>
     </CounterWrapper>
-  )
-}
+  );
+};
 
-export default Counter
+export default Counter;

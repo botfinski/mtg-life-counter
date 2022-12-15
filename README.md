@@ -9,5 +9,8 @@ Currently supports two players mode only.
 Live version: [https://botfinski.github.io/mtg-life-counter/](https://botfinski.github.io/mtg-life-counter/)
 
 To run the app use below commands in the app directory:
+
+```bash
 npm install
 npm start
+```

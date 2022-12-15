@@ -1,11 +1,11 @@
-import React from "react"
-import styled, { css } from "styled-components"
-import { MtgIcon } from "../Icons/Icons"
+import React from "react";
+import styled, { css } from "styled-components";
+import { MtgIcon } from "../Icons/Icons";
 
 export type ToggleButtonProps = {
-  toggleDrawer?: () => void
-  drawerOpened: boolean
-}
+  toggleDrawer?: () => void;
+  drawerOpened: boolean;
+};
 
 const ToggleButtonWrapper = styled.button<ToggleButtonProps>`
   position: absolute;
@@ -26,7 +26,7 @@ const ToggleButtonWrapper = styled.button<ToggleButtonProps>`
     css`
       top: calc(50vh - 87px);
     `};
-`
+`;
 
 export const ToggleButton: React.FC<ToggleButtonProps> = ({
   toggleDrawer,
@@ -40,7 +40,7 @@ export const ToggleButton: React.FC<ToggleButtonProps> = ({
     >
       <MtgIcon />
     </ToggleButtonWrapper>
-  )
-}
+  );
+};
 
-export default ToggleButton
+export default ToggleButton;

@@ -1,9 +1,9 @@
-import React from "react"
-import styled, { css } from "styled-components"
+import React from "react";
+import styled, { css } from "styled-components";
 
 export interface DrawerProps {
-  isOpened: boolean
-  resetHP?: () => void
+  isOpened: boolean;
+  resetHP?: () => void;
 }
 
 const Drawer = styled.div<DrawerProps>`
@@ -30,7 +30,7 @@ const Drawer = styled.div<DrawerProps>`
         opacity: 1;
       }
     `};
-`
+`;
 
 const ResetButton = styled.button`
   width: 95px;
@@ -42,7 +42,7 @@ const ResetButton = styled.button`
   font-weight: bold;
   text-transform: uppercase;
   border: 3px solid black;
-`
+`;
 
 const DrawerWrapper: React.FC<DrawerProps> = ({ isOpened, resetHP }) => {
   return (
@@ -51,7 +51,7 @@ const DrawerWrapper: React.FC<DrawerProps> = ({ isOpened, resetHP }) => {
         reset
       </ResetButton>
     </Drawer>
-  )
-}
+  );
+};
 
-export default DrawerWrapper
+export default DrawerWrapper;

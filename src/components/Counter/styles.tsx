@@ -1,22 +1,22 @@
-import styled, { css } from "styled-components"
-import { CounterStyleProps, ColorPanelProps } from "./Counter"
+import styled, { css } from "styled-components";
+import { CounterStyleProps, ColorPanelProps } from "./Counter";
 
 const handleColorType = (bgColor: string) => {
   switch (bgColor) {
     case "red":
-      return "linear-gradient(229deg, #9c0101, #660200, #2c0403);"
+      return "linear-gradient(229deg, #9c0101, #660200, #2c0403);";
     case "black":
-      return "linear-gradient(229deg,#393737,#343232,#080707);"
+      return "linear-gradient(229deg,#393737,#343232,#080707);";
     case "blue":
-      return "linear-gradient(229deg,#013a9c,#002566,#030b2c);"
+      return "linear-gradient(229deg,#013a9c,#002566,#030b2c);";
     case "green":
-      return "linear-gradient(229deg,#167c01,#014d01,#010904);"
+      return "linear-gradient(229deg,#167c01,#014d01,#010904);";
     case "white":
-      return "linear-gradient(229deg,#f6d5af,#b59e5e,#97732a);"
+      return "linear-gradient(229deg,#f6d5af,#b59e5e,#97732a);";
     default:
-      return "#000"
+      return "#000";
   }
-}
+};
 
 export const CounterWrapper = styled.div<CounterStyleProps>`
   position: relative;
@@ -42,7 +42,7 @@ export const CounterWrapper = styled.div<CounterStyleProps>`
     css`
       height: calc(50vh - 50px - 2px);
     `};
-`
+`;
 
 export const CounterButton = styled.button`
   width: 80px;
@@ -51,11 +51,11 @@ export const CounterButton = styled.button`
   color: #fff;
   font-size: 3rem;
   background: rgba(0, 0, 0, 0.1);
-`
+`;
 
 export type HPProps = {
-  value: number
-}
+  value: number;
+};
 
 export const HP = styled.span<HPProps>`
   font-size: 8.5rem;
@@ -66,7 +66,7 @@ export const HP = styled.span<HPProps>`
     css`
       color: red;
     `};
-`
+`;
 
 export const ColorToggleButton = styled.button<ColorPanelProps>`
   width: 70px;
@@ -81,7 +81,7 @@ export const ColorToggleButton = styled.button<ColorPanelProps>`
   & > svg {
     width: 85%;
   }
-`
+`;
 
 export const ColorPanel = styled.div<ColorPanelProps>`
   position: absolute;
@@ -99,7 +99,7 @@ export const ColorPanel = styled.div<ColorPanelProps>`
       justify-content: space-evenly;
       align-items: center;
     `};
-`
+`;
 export const ColorButton = styled.button`
   border: 0;
   height: 85px;
@@ -108,4 +108,4 @@ export const ColorButton = styled.button`
   display: flex;
   align-items: center;
   background: transparent;
-`
+`;

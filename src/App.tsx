@@ -1,137 +1,137 @@
 import { useEffect, useState } from "react";
-import Counter from "./components/Counter/Counter";
-import Drawer from "./components/Drawer/Drawer";
-import ToggleButton from "./components/ToggleButton/ToggleButton";
-import styled from "styled-components";
-
-const AppWrapper = styled.div`
-	text-align: center;
-	background-color: #282c34;
-	color: #fff;
-	min-height: 100vh;
-	display: flex;
-	flex-flow: column nowrap;
-	align-items: stretch;
-	background-color: #282c34;
-`;
+import Menu from "./components/Menu/Menu";
+import PlayerCounter, {
+	HANDLE_LIFE,
+} from "./components/PlayerCounter/PlayerCounter";
 
 export type Player = {
 	id: number;
-	hp: number;
-	colorPanelOpened: boolean;
-	bgColor: string;
+	life: number;
+	poisonCounters: number;
+	settingsOpened: boolean;
 };
 
-export const Players = [
-	{
-		id: 1,
-		hp: 20,
-		colorPanelOpened: false,
-		bgColor: "black",
-	},
-	{
-		id: 2,
-		hp: 20,
-		colorPanelOpened: false,
-		bgColor: "red",
-	},
-];
+const initialPlayerState = (numPlayers: number): Player[] =>
+	Array(numPlayers)
+		.fill(null)
+		.map((_, i) => ({
+			id: i,
+			life: 20,
+			poisonCounters: 0,
+			settingsOpened: false,
+		}));
 
-export const CLICK_TYPE = {
-	ADD: "add",
-	REDUCE: "reduce",
-};
+const App = () => {
+	const [players, setPlayers] = useState(initialPlayerState(2));
+	const [isMenuOpened, setMenuOpened] = useState(false);
 
-export default function App() {
-	const [players, setPlayers] = useState(
-		() => JSON.parse(localStorage.getItem("players")!) || Players
-	);
-	const [drawerOpened, setDrawerOpened] = useState(false);
-
-	const resetHP = () => {
-		setPlayers(
-			[...players].map(player => {
-				return {
-					...player,
-					hp: 20,
-				};
-			})
-		);
-		setTimeout(() => {
-			setDrawerOpened(false);
-		}, 500);
+	const toggleMenu = () => {
+		setMenuOpened(isMenuOpened => !isMenuOpened);
 	};
 
-	const toggleDrawer = () => {
-		setDrawerOpened(drawerOpened => !drawerOpened);
-		setPlayers(
-			[...players].map(player => ({ ...player, colorPanelOpened: false }))
-		);
-	};
-
-	const handleHPCounter = (id: number, type: string) => {
+	const handleLife = (id: number, type: string) => {
 		switch (type) {
-			case CLICK_TYPE.ADD:
+			case HANDLE_LIFE.ADD:
 				setPlayers(
 					[...players].map(player => {
-						return player.id === id ? { ...player, hp: player.hp + 1 } : player;
+						return player.id === id ? { ...player, life: player.life + 1 } : player;
 					})
 				);
 				break;
-			case CLICK_TYPE.REDUCE:
+
+			case HANDLE_LIFE.REDUCE:
 				setPlayers(
 					[...players].map(player => {
-						return player.id === id ? { ...player, hp: player.hp - 1 } : player;
+						return player.id === id ? { ...player, life: player.life - 1 } : player;
 					})
 				);
 				break;
+
 			default:
 				console.log(`Type ${type} is not supported.`);
+				break;
 		}
 	};
 
-	const toggleColorPanel = (id: number) => {
-		setPlayers(
-			[...players].map(player => {
-				return player.id === id
-					? { ...player, colorPanelOpened: !player.colorPanelOpened }
-					: player;
-			})
-		);
-		setDrawerOpened(false);
+	const handlePlayersCount = (nrOfPlayers: number) => {
+		setPlayers(initialPlayerState(nrOfPlayers));
+		toggleMenu();
 	};
 
-	const handleColorChange = (id: number, color: string) => {
+	const resetLife = () => {
 		setPlayers(
-			[...players].map(player => {
-				return player.id === id
-					? { ...player, bgColor: color, colorPanelOpened: false }
-					: player;
-			})
+			[...players].map(player => ({
+				...player,
+				life: 20,
+			}))
 		);
+
+		setTimeout(() => {
+			toggleMenu();
+		}, 250);
 	};
+
+	// useEffect(() => {
+	// 	localStorage.setItem("players", JSON.stringify(players));
+	// }, [players]);
 
 	useEffect(() => {
-		localStorage.setItem("players", JSON.stringify(players));
+		const setSizes = () => {
+			document.documentElement.style.setProperty(
+				"--vh",
+				`${window.innerHeight}px`
+			);
+
+			const appContainer = document.querySelector<HTMLElement>(".app-container");
+			const { width, height } = appContainer!.getBoundingClientRect();
+
+			if (players.length > 2) {
+				const vw = width / 2 - 5;
+				const vh = height / Math.ceil(players.length / 2) - 5;
+
+				document.querySelectorAll<HTMLElement>(".player-inner").forEach(element => {
+					element.style.setProperty("--player-inner-width", `${vh}px`);
+					element.style.setProperty("--player-inner-height", `${vw}px`);
+				});
+			} else {
+				document.querySelectorAll<HTMLElement>(".player-inner").forEach(element => {
+					element.style.setProperty("--player-inner-width", "100%");
+					element.style.setProperty("--player-inner-height", "100%");
+				});
+			}
+		};
+
+		setSizes();
+
+		const handleTouchMove = (event: TouchEvent) => event.preventDefault();
+		document.addEventListener("touchmove", handleTouchMove, { passive: false });
+		window.addEventListener("resize", setSizes);
+
+		return () => {
+			document.removeEventListener("touchmove", handleTouchMove);
+			window.removeEventListener("resize", setSizes);
+		};
 	}, [players]);
 
 	return (
-		<AppWrapper>
-			{players.map((player: Player) => (
-				<Counter
-					hp={player.hp}
-					id={player.id}
-					key={player.id}
-					bgColor={player.bgColor}
-					handleHPCounter={handleHPCounter}
-					isDrawerOpened={drawerOpened}
-					isColorPanelOpened={player.colorPanelOpened}
-					toggleColorPanel={toggleColorPanel}
-					handleColorChange={handleColorChange}
+		<div className={`app-container ${players.length}-players`}>
+			{players.map((player: Player, i: number) => (
+				<PlayerCounter
+					key={`${players.length}-${i} - 1`}
+					playersCount={players.length}
+					handleLife={handleLife}
+					player={player}
 				/>
 			))}
-			<Drawer isOpened={drawerOpened} resetHP={resetHP} />
-			<ToggleButton toggleDrawer={toggleDrawer} drawerOpened={drawerOpened} />
-		</AppWrapper>
+
+			<Menu
+				toggleMenu={toggleMenu}
+				handlePlayersCount={handlePlayersCount}
+				isMenuOpened={isMenuOpened}
+				resetLife={resetLife}
+			/>
+		</div>
 	);
-}
+};
+
+export default App;

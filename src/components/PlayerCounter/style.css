@@ -1,0 +1,123 @@
+/* :root {
+  --borderRadius: clamp(16px, 4.5vw, 24px);
+} */
+
+.player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  /* border-radius: var(--borderRadius) var(--borderRadius) 0 0; */
+  /* border-radius: var(--borderRadius); */
+}
+
+.rotate-180 {
+  .player-inner {
+    transform: rotate(180deg);
+  }
+}
+
+.rotate-90 {
+  .player-inner {
+    transform: rotate(90deg);
+  }
+}
+
+.rotate-270 {
+  .player-inner {
+    transform: rotate(270deg);
+  }
+}
+
+.player-inner {
+  position: absolute;
+  width: var(--player-inner-width, 100%);
+  height: var(--player-inner-height, 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #169e9e;
+  /* outline: 1px solid red; */
+}
+
+.life-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* outline: 1px solid black;
+
+  & > * {
+    outline: 1px dashed black;
+  } */
+}
+
+
+.life-value {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  font-size: 8.5rem;
+  text-shadow: black 4px 4px;
+  transform: translate(-50%, 50%);
+}
+
+.life-button {
+  width: clamp(60px, 20vw, 300px);
+  height: 100%;
+  font-size: 3rem;
+  transition: .15s ease-in-out;
+
+  &:active {
+    background: rgba(0, 0, 0, 0.04);
+  }
+}
+
+.settings-drawer {
+  position: absolute;
+  background: #707070;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  transition: all .2s ease-in-out;
+  overflow: hidden;
+  transform: translate(0, 100%);
+  z-index: 2;
+}
+
+.settings-drawer.opened {
+  transform: translate(0, 0);
+}
+
+.settings-button-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 0 8px;
+  /* background: rgba(255, 0, 0, 0.527); */
+  z-index: 3;
+}
+
+.settings-button {
+  position: absolute;
+  height: 25px;
+  width: calc(100% - 10px);
+  border-radius: 5px;
+  background: #383838;
+
+  &::after {
+    content: '';
+    display: block;
+    width: clamp(20px, 30%, 200px);
+    height: 3px;
+    margin: 0 auto;
+    background: #cacaca;
+    border-radius: 3px;
+  }
+}

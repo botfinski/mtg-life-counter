@@ -9,7 +9,12 @@ export type Player = {
 	life: number;
 	poisonCounters: number;
 	settingsOpened: boolean;
+	bgColor: string;
 };
+
+export const bgColors = ["white", "red", "green", "black", "blue"];
+const getRandomColor = () =>
+	bgColors[Math.floor(Math.random() * bgColors.length)];
 
 const initialPlayerState = (numPlayers: number): Player[] =>
 	Array(numPlayers)
@@ -19,10 +24,13 @@ const initialPlayerState = (numPlayers: number): Player[] =>
 			life: 20,
 			poisonCounters: 0,
 			settingsOpened: false,
+			bgColor: getRandomColor(),
 		}));
 
 const App = () => {
-	const [players, setPlayers] = useState(initialPlayerState(2));
+	const [players, setPlayers] = useState(
+		() => JSON.parse(localStorage.getItem("players")!) || initialPlayerState(2)
+	);
 	const [isMenuOpened, setMenuOpened] = useState(false);
 
 	const toggleMenu = () => {
@@ -82,9 +90,21 @@ const App = () => {
 		}, 250);
 	};
 
-	// useEffect(() => {
-	// 	localStorage.setItem("players", JSON.stringify(players));
-	// }, [players]);
+	const handleChangeBg = (id: number, color: string) => {
+		console.log(id, color);
+
+		setPlayers(
+			[...players].map(player => {
+				return player.id === id
+					? { ...player, bgColor: color, settingsOpened: false }
+					: player;
+			})
+		);
+	};
+
+	useEffect(() => {
+		localStorage.setItem("players", JSON.stringify(players));
+	}, [players]);
 
 	useEffect(() => {
 		const setSizes = () => {
@@ -128,6 +148,7 @@ const App = () => {
 					handleLife={handleLife}
 					handleSettings={handleSettings}
 					player={player}
+					handleChangeBg={handleChangeBg}
 				/>
 			))}
 

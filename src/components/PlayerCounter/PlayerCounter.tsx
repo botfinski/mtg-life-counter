@@ -1,6 +1,7 @@
 import "./style.css";
-import { Player } from "../../App";
+import { bgColors, Player } from "../../App";
 import { useRef, useState } from "react";
+import ColorButton from "./ColorButton";
 
 export const HANDLE_LIFE = {
 	ADD: "add",
@@ -12,6 +13,7 @@ export type PlayerCounterProps = {
 	handleLife: (id: number, type: string) => void;
 	handleSettings: (id: number) => void;
 	player: Player;
+	handleChangeBg: (playerId: number, color: string) => void;
 };
 
 const PlayerCounter: React.FC<PlayerCounterProps> = ({
@@ -19,6 +21,7 @@ const PlayerCounter: React.FC<PlayerCounterProps> = ({
 	handleLife,
 	handleSettings,
 	player,
+	handleChangeBg,
 }) => {
 	let rotationClassName = "";
 
@@ -74,7 +77,7 @@ const PlayerCounter: React.FC<PlayerCounterProps> = ({
 
 	return (
 		<div className={`player ${rotationClassName}`}>
-			<div className="player-inner">
+			<div className={`player-inner bg-${player.bgColor}`}>
 				<div className="life-container">
 					<button
 						className="life-button"
@@ -113,9 +116,14 @@ const PlayerCounter: React.FC<PlayerCounterProps> = ({
 				</div>
 
 				<div className={`settings-drawer ${player.settingsOpened ? "opened" : ""}`}>
-					Player
-					<br />
-					Settings drawer
+					{bgColors.map(color => (
+						<ColorButton
+							key={color}
+							color={color}
+							handleChangeBg={handleChangeBg}
+							playerId={player.id}
+						/>
+					))}
 				</div>
 			</div>
 		</div>

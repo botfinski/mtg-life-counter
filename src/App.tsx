@@ -53,6 +53,16 @@ const App = () => {
 		}
 	};
 
+	const handleSettings = (id: number) => {
+		setPlayers(
+			[...players].map(player => {
+				return player.id === id
+					? { ...player, settingsOpened: !player.settingsOpened }
+					: player;
+			})
+		);
+	};
+
 	const handlePlayersCount = (nrOfPlayers: number) => {
 		setPlayers(initialPlayerState(nrOfPlayers));
 		toggleMenu();
@@ -63,6 +73,7 @@ const App = () => {
 			[...players].map(player => ({
 				...player,
 				life: 20,
+				settingsOpened: false,
 			}))
 		);
 
@@ -77,11 +88,6 @@ const App = () => {
 
 	useEffect(() => {
 		const setSizes = () => {
-			document.documentElement.style.setProperty(
-				"--vh",
-				`${window.innerHeight}px`
-			);
-
 			const appContainer = document.querySelector<HTMLElement>(".app-container");
 			const { width, height } = appContainer!.getBoundingClientRect();
 
@@ -120,11 +126,13 @@ const App = () => {
 					key={`${players.length}-${i} - 1`}
 					playersCount={players.length}
 					handleLife={handleLife}
+					handleSettings={handleSettings}
 					player={player}
 				/>
 			))}
 
 			<Menu
+				playersCount={players.length}
 				toggleMenu={toggleMenu}
 				handlePlayersCount={handlePlayersCount}
 				isMenuOpened={isMenuOpened}

@@ -6,6 +6,7 @@ type MenuProps = {
 	isMenuOpened: boolean;
 	handlePlayersCount: (i: number) => void;
 	resetLife: () => void;
+	playersCount: number;
 };
 
 const Menu: React.FC<MenuProps> = ({
@@ -13,6 +14,7 @@ const Menu: React.FC<MenuProps> = ({
 	isMenuOpened,
 	handlePlayersCount,
 	resetLife,
+	playersCount,
 }) => {
 	return (
 		<>
@@ -21,7 +23,7 @@ const Menu: React.FC<MenuProps> = ({
 			</button>
 			{isMenuOpened && (
 				<div className="backdrop">
-					<div>
+					<div className="backdrop-inner">
 						<div className="players-count">
 							Players
 							<div className="players-count-container">
@@ -31,14 +33,20 @@ const Menu: React.FC<MenuProps> = ({
 										value={i + 2}
 										className="players-count-button"
 										onClick={() => handlePlayersCount(i + 2)}
+										disabled={Boolean(i + 2 === playersCount)}
 									>
 										{i + 2}
 									</button>
 								))}
 							</div>
 						</div>
+
 						<div>
-							<button type="button" onClick={() => resetLife()}>
+							<button
+								type="button"
+								onClick={() => resetLife()}
+								className="reset-life-button"
+							>
 								Reset
 							</button>
 						</div>

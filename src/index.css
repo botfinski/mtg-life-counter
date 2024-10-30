@@ -46,9 +46,11 @@ button {
 .app-container.\000032-players {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
+  font-size: 8.5rem;
 }
 
 .app-container.\000033-players, .app-container.\000034-players {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
+  font-size: 6rem;
 }

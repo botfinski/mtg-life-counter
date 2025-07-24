@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/mtg-life-counter/static/css/main.00296450.css",
-    "main.js": "/mtg-life-counter/static/js/main.f57b1660.js",
+    "main.css": "/mtg-life-counter/static/css/main.a72dc4dc.css",
+    "main.js": "/mtg-life-counter/static/js/main.ba2b3bc3.js",
     "static/js/787.3110bcc2.chunk.js": "/mtg-life-counter/static/js/787.3110bcc2.chunk.js",
     "index.html": "/mtg-life-counter/index.html",
-    "main.00296450.css.map": "/mtg-life-counter/static/css/main.00296450.css.map",
-    "main.f57b1660.js.map": "/mtg-life-counter/static/js/main.f57b1660.js.map",
+    "main.a72dc4dc.css.map": "/mtg-life-counter/static/css/main.a72dc4dc.css.map",
+    "main.ba2b3bc3.js.map": "/mtg-life-counter/static/js/main.ba2b3bc3.js.map",
     "787.3110bcc2.chunk.js.map": "/mtg-life-counter/static/js/787.3110bcc2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.00296450.css",
-    "static/js/main.f57b1660.js"
+    "static/css/main.a72dc4dc.css",
+    "static/js/main.ba2b3bc3.js"
   ]
 }

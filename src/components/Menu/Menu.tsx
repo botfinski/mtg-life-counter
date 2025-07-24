@@ -1,60 +1,105 @@
+import React from "react";
 import { MtgIcon } from "../Icons/Icons";
 import "./style.css";
 
 type MenuProps = {
-	toggleMenu: () => void;
-	isMenuOpened: boolean;
-	handlePlayersCount: (i: number) => void;
-	resetLife: () => void;
 	playersCount: number;
+	onToggleMenu: () => void;
+	onPlayersCountChange: (count: number) => void;
+	startingLife: number;
+	onStartingLifeChange: (life: number) => void;
+	isMenuOpened: boolean;
+	onResetLife: () => void;
+	commanderFormat: boolean;
+	onCommanderFormatToggle: () => void;
 };
 
-const Menu: React.FC<MenuProps> = ({
-	toggleMenu,
-	isMenuOpened,
-	handlePlayersCount,
-	resetLife,
-	playersCount,
-}) => {
-	return (
-		<>
-			<button className="menu-button" onClick={toggleMenu} type="button">
-				<MtgIcon />
-			</button>
-			{isMenuOpened && (
-				<div className="backdrop">
-					<div className="backdrop-inner">
-						<div className="players-count">
-							Players
-							<div className="players-count-container">
-								{[...Array(3)].map((_, i) => (
-									<button
-										key={i}
-										value={i + 2}
-										className="players-count-button"
-										onClick={() => handlePlayersCount(i + 2)}
-										disabled={Boolean(i + 2 === playersCount)}
-									>
-										{i + 2}
-									</button>
-								))}
-							</div>
-						</div>
+const PLAYER_COUNT_OPTIONS = [2, 3, 4];
+const STARTING_LIFE_OPTIONS = [20, 30, 40];
 
-						<div>
+const Menu: React.FC<MenuProps> = React.memo(
+	({
+		playersCount,
+		onToggleMenu,
+		onPlayersCountChange,
+		startingLife,
+		onStartingLifeChange,
+		isMenuOpened,
+		onResetLife,
+		// commanderFormat,
+		// onCommanderFormatToggle,
+	}) => {
+		return (
+			<>
+				<button
+					className="menu-button"
+					onClick={onToggleMenu}
+					type="button"
+					aria-label="Otwórz menu"
+				>
+					<MtgIcon />
+				</button>
+
+				{isMenuOpened && (
+					<div className="backdrop">
+						<div className="backdrop-inner">
+							<div className="menu-container players-count">
+								Players
+								<div className="count-container">
+									{PLAYER_COUNT_OPTIONS.map(count => (
+										<button
+											key={count}
+											className="count-button"
+											onClick={() => onPlayersCountChange(count)}
+											disabled={count === playersCount}
+										>
+											{count}
+										</button>
+									))}
+								</div>
+							</div>
+
+							<div className="menu-container starting-life">
+								Starting Life
+								<div className="count-container">
+									{STARTING_LIFE_OPTIONS.map(life => (
+										<button
+											key={life}
+											className="count-button"
+											onClick={() => onStartingLifeChange(life)}
+											disabled={life === startingLife}
+										>
+											{life}
+										</button>
+									))}
+								</div>
+							</div>
+
+							{/* <div className="commander">
+								Commander?{" "}
+								<input
+									className="commander-checkbox"
+									type="checkbox"
+									checked={commanderFormat}
+									onChange={onCommanderFormatToggle}
+								/>
+							</div> */}
+
 							<button
 								type="button"
-								onClick={() => resetLife()}
+								onClick={onResetLife}
 								className="reset-life-button"
 							>
 								Reset
 							</button>
 						</div>
 					</div>
-				</div>
-			)}
-		</>
-	);
-};
+				)}
+			</>
+		);
+	}
+);
+
+Menu.displayName = "Menu";
 
 export default Menu;
